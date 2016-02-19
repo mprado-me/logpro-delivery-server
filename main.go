@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"admin"
 	"github.com/gorilla/mux"
 	"mob"
 	"net/http"
@@ -10,10 +10,6 @@ import (
 func init() {
 	r := mux.NewRouter()
 	r.HandleFunc("/mobile/auth-user", mob.AuthUserHandler)
+	r.HandleFunc("/website/admin/put-motoboy", admin.PutMotoboy)
 	http.Handle("/", r)
-}
-
-func handler(w http.ResponseWriter, r *http.Request) {
-
-	fmt.Fprintf(w, "Hello World! 2")
 }
