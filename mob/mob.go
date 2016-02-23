@@ -1,9 +1,8 @@
 package mob
 
 import (
-	"encoding/json"
+	"encoding/json" //Temp
 	"fmt"
-	"gaelog"
 	"kind"
 	"mem/short"
 	"msg"
@@ -13,6 +12,7 @@ import (
 	"user"
 )
 
+// TODO: Usar InAuthMsg, OutAuthMsg e procauth.Process()
 // TODO: Não passar o login por query, pois apesar do https encriptar as informacoes de login,
 // toda url requisitada é salva no log do servidor
 func AuthUserHandler(w http.ResponseWriter, r *http.Request) {
@@ -20,20 +20,17 @@ func AuthUserHandler(w http.ResponseWriter, r *http.Request) {
 	email := values.Get("email")
 	password := values.Get("password")
 
-	gaelog.PrintString(r, "email = "+email)
-	gaelog.PrintString(r, "password = "+password)
-
 	motoboy := &mtb.Motoboy{}
 	err := mtb.Get(r, email, motoboy)
 	if err != nil {
-		fmt.Fprintf(w, "EMAIL_NOT_REGISTERED")
+		fmt.Fprintf(w, "{\"auth_ok\": false, \"reason\": \"email\"}")
 		return
 	}
 	if password != motoboy.Password {
-		fmt.Fprintf(w, "INCORRECT_PASSWORD")
+		fmt.Fprintf(w, "{\"auth_ok\": false, \"reason\": \"password\"}")
 		return
 	}
-	fmt.Fprintf(w, "SUCCESS")
+	fmt.Fprintf(w, "{\"auth_ok\": true}")
 }
 
 // TODO: Autenticar

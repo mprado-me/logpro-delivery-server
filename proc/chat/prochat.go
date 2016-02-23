@@ -10,6 +10,6 @@ func Process(inChatMsg msg.InChat) {
 		SenderEmail: inChatMsg.Sender.Email,
 		Text:        inChatMsg.Text,
 	}
-	// TODO: Enviar para todos os usuario ativos
+	// TODO: Enviar para todos os usuarios ativos
 	smem.MsgTo("test@test.com", outMsg)
 }
